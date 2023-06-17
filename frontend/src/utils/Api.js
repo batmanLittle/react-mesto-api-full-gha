@@ -74,8 +74,5 @@ class Api {
   }
 }
 
-const api = new Api(
-  "https://mesto.nomoreparties.co/v1/cohort-61",
-  "62914e9b-54c6-4b1a-9195-b5e234af2b53"
-);
+const api = new Api("https://api.batman.nomoredomains.rocks");
 export default api;
