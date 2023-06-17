@@ -7,6 +7,7 @@ const Auth = require("../utils/Auth");
 const BadRequest = require("../utils/BadRequest");
 const NotFound = require("../utils/NotFound");
 const Conflict = require("../utils/Conflict");
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
   usersModel
@@ -123,9 +124,13 @@ login = (req, res, next) => {
   return usersModel
     .findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, "super-strong-secret", {
-        expiresIn: "7d",
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        {
+          expiresIn: "7d",
+        }
+      );
       res.send({ token });
     })
     .catch((err) => {

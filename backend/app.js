@@ -12,6 +12,10 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const app = express();
 
+const { PORT = 3000 } = process.env;
+
+require("dotenv").config();
+
 mongoose.connect("mongodb://127.0.0.1:27017/mestodb");
 
 app.use(bodyParser.json());
@@ -40,6 +44,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("App listening on server 3000");
 });
