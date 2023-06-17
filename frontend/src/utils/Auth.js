@@ -2,10 +2,12 @@ export const BASE_URL = "https://api.batman.nomoredomains.rocks";
 
 const makeRequest = (url, method, body, token) => {
   const options = {
-    credentials: "include",
+    // credentials: "include",
+    mode: "cors",
     method,
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
     },
   };
   if (body) {

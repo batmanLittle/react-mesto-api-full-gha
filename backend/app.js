@@ -12,9 +12,9 @@ const { errors } = require("celebrate");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const cors = require("cors");
-app.use(cors());
 
 const app = express();
+app.use(cors());
 
 const { PORT = 3000 } = process.env;
 
