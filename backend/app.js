@@ -11,6 +11,9 @@ const { createUserValid, loginValid } = require("./middlewares/validation");
 const { errors } = require("celebrate");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
+const cors = require("cors");
+app.use(cors());
+
 const app = express();
 
 const { PORT = 3000 } = process.env;
