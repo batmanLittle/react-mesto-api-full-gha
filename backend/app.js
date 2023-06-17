@@ -16,10 +16,8 @@ const app = express();
 const { PORT = 3000 } = process.env;
 
 const allowedCors = [
-  "https://batman.nomoredomains.rock/",
-  "https://api.batman.nomoredomains.rock/",
-  "http://batman.nomoredomains.rock/",
-  "http://api.batman.nomoredomains.rock/",
+  "https://batman.nomoredomains.rocks",
+  "https://api.batman.nomoredomains.rocks",
   "localhost:3000",
 ];
 
