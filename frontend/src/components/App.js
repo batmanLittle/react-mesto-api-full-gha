@@ -40,7 +40,7 @@ function App() {
           const data = res.data;
           setUserData({ email: data.email });
           setIsLoggedIn(true);
-          navigate("/react-mesto-auth", { replace: true });
+          navigate("/", { replace: true });
         })
         .catch((err) => {
           console.log(err);
@@ -262,7 +262,7 @@ function App() {
             }
           />
           <Route
-            path="/react-mesto-auth"
+            path="/"
             element={
               <>
                 <Header
