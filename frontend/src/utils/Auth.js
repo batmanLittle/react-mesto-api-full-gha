@@ -2,6 +2,7 @@ export const BASE_URL = "https://api.batman.nomoredomains.rocks";
 
 const makeRequest = (url, method, body, token) => {
   const options = {
+    credentials: "include",
     method,
     headers: {
       "Content-Type": "application/json",

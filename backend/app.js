@@ -18,7 +18,7 @@ const { PORT = 3000 } = process.env;
 const allowedCors = [
   "https://batman.nomoredomains.rocks",
   "https://api.batman.nomoredomains.rocks",
-  "http://localhost:3000",
+  "localhost:3000",
 ];
 
 app.use((req, res, next) => {
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   const requestHeaders = req.headers["access-control-request-headers"];
   if (allowedCors.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", origin);
     res.header("Access-Control-Allow-Credentials", "true");
   }
   if (method === "OPTIONS") {
