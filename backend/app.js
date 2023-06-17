@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -14,7 +15,32 @@ const app = express();
 
 const { PORT = 3000 } = process.env;
 
-require("dotenv").config();
+const allowedCors = [
+  "https://batman.nomoredomains.rock",
+  "https://api.batman.nomoredomains.rock",
+  "http://batman.nomoredomains.rock",
+  "http://api.batman.nomoredomains.rock",
+  "localhost:3000",
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+  const requestHeaders = req.headers["access-control-request-headers"];
+  if (allowedCors.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+  }
+  if (method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
+    res.header("Access-Control-Allow-Headers", requestHeaders);
+
+    return res.status(200).send();
+  }
+
+  next();
+});
 
 mongoose.connect("mongodb://127.0.0.1:27017/mestodb");
 
@@ -35,34 +61,12 @@ app.use(errorLogger);
 
 app.use(errors());
 
-const allowedCors = [
-  "http://batman.nomoredomains.rocks",
-  "https://batman.nomoredomains.rocks",
-  "localhost:3000",
-];
-
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
   res.status(statusCode).send({
     message: statusCode === 500 ? "На сервере произошла ошибка" : message,
   });
-
-  const { origin } = req.headers;
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-  const requestHeaders = req.headers["access-control-request-headers"];
-  if (allowedCors.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", "origin");
-    res.header("Access-Control-Allow-Credentials", "true");
-  }
-  if (method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
-    res.header("Access-Control-Allow-Headers", requestHeaders);
-
-    return res.end();
-  }
-
   next();
 });
 
