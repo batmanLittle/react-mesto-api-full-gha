@@ -20,8 +20,9 @@ const { PORT = 3000 } = process.env;
 
 const allowedCors = [
   "https://batman.nomoredomains.rocks",
-  "https://api.batman.nomoredomains.rocks",
+  "http://batman.nomoredomains.rocks",
   "localhost:3000",
+  "http://localhost:3000",
 ];
 
 app.use((req, res, next) => {

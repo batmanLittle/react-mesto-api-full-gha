@@ -82,8 +82,5 @@ class Api {
   }
 }
 
-const api = new Api(
-  "https://api.batman.nomoredomains.rocks",
-  `Bearer ${localStorage.getItem("token")}`
-);
+const api = new Api("https://api.batman.nomoredomains.rocks");
 export default api;
