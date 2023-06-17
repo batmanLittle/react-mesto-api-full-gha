@@ -36,7 +36,7 @@ app.use(errorLogger);
 app.use(errors());
 
 const allowedCors = [
-  "http://batman.nomoredomains.rocks",
+  "http://api.batman.nomoredomains.rocks",
   "https://api.batman.nomoredomains.rocks",
   "localhost:3000",
 ];
