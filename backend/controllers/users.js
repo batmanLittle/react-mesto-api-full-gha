@@ -3,7 +3,7 @@ const usersModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const Auth = require("../utils/ Auth");
+const Auth = require("../utils/Auth");
 const BadRequest = require("../utils/BadRequest");
 const NotFound = require("../utils/NotFound");
 const Conflict = require("../utils/Conflict");
