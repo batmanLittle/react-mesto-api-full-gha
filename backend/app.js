@@ -38,7 +38,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
     res.header("Access-Control-Allow-Headers", requestHeaders);
 
-    return res.status(200).send();
+    return res.end();
   }
 
   next();
