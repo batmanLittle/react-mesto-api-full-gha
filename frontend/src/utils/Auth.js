@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.batman.nomoredomains.rocks/";
+export const BASE_URL = "http://api.batman.nomoredomains.rocks";
 
 const makeRequest = (url, method, body, token) => {
   const options = {
