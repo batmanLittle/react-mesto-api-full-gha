@@ -19,14 +19,12 @@ class Api {
   getCards() {
     return fetch(`${this._basePath}/cards`, {
       headers: this._getHeaders(),
-      credentials: "include",
     }).then(this._getJson);
   }
 
   createNewCard(item) {
     return fetch(`${this._basePath}/cards`, {
       method: "POST",
-      credentials: "include",
       headers: this._getHeaders(),
       body: JSON.stringify(item),
     }).then(this._getJson);
@@ -35,20 +33,17 @@ class Api {
   getCurrentUser() {
     return fetch(`${this._basePath}/users/me `, {
       headers: this._getHeaders(),
-      credentials: "include",
     }).then(this._getJson);
   }
   deleteCard(id) {
     return fetch(`${this._basePath}/cards/${id} `, {
       method: "DELETE",
-      credentials: "include",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
   createNewAvatar(data) {
     return fetch(`${this._basePath}/users/me/avatar`, {
       method: "PATCH",
-      credentials: "include",
       headers: this._getHeaders(),
       body: JSON.stringify({
         avatar: data.avatar,
@@ -58,7 +53,6 @@ class Api {
   createNewProfile(data) {
     return fetch(`${this._basePath}/users/me`, {
       method: "PATCH",
-      credentials: "include",
       headers: this._getHeaders(),
       body: JSON.stringify({
         name: data.name,
@@ -69,18 +63,21 @@ class Api {
   putLike(id) {
     return fetch(`${this._basePath}/cards/${id}/likes`, {
       method: "PUT",
-      credentials: "include",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
   deleteLike(id) {
     return fetch(`${this._basePath}/cards/${id}/likes`, {
       method: "DELETE",
-      credentials: "include",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 }
 
-const api = new Api("https://api.batman.nomoredomains.rocks");
+const api = new Api(
+  "https://api.batman.nomoredomains.rocks",
+  // "62914e9b-54c6-4b1a-9195-b5e234af2b53"
+  `Bearer ${localStorage.getItem("token")}`
+  // `${localStorage.getItem("token")}`
+);
 export default api;

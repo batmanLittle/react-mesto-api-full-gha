@@ -7,6 +7,7 @@ const Auth = require("../utils/Auth");
 const BadRequest = require("../utils/BadRequest");
 const NotFound = require("../utils/NotFound");
 const Conflict = require("../utils/Conflict");
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
@@ -126,7 +127,7 @@ login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        NODE_ENV === "production" ? JWT_SECRET : "secret-key",
         {
           expiresIn: "7d",
         }
