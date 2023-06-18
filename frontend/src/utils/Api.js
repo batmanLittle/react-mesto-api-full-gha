@@ -1,12 +1,11 @@
 class Api {
-  constructor(basePath, token) {
+  constructor(basePath) {
     this._basePath = basePath;
-    this._token = token;
   }
   _getHeaders() {
     return {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-type": "application/json",
-      authorization: this._token,
     };
   }
   _getJson(res) {
@@ -31,10 +30,11 @@ class Api {
   }
 
   getCurrentUser() {
-    return fetch(`${this._basePath}/users/me `, {
+    return fetch(`${this._basePath}/users/me`, {
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
+
   deleteCard(id) {
     return fetch(`${this._basePath}/cards/${id} `, {
       method: "DELETE",
@@ -75,9 +75,9 @@ class Api {
 }
 
 const api = new Api(
-  "https://api.batman.nomoredomains.rocks",
-  // "62914e9b-54c6-4b1a-9195-b5e234af2b53"
-  `Bearer ${localStorage.getItem("token")}`
+  "http://localhost:3001"
+  // "62914e9b-54c6-4b1a-9195-b5e234af2b53" // "https://api.batman.nomoredomains.rocks",
+  // `Bearer ${localStorage.getItem("token")}`
   // `${localStorage.getItem("token")}`
 );
 export default api;

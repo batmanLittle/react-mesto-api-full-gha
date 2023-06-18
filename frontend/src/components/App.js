@@ -22,11 +22,11 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ email: "" });
+  const [userData, setUserData] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccessRegistration, setIsSuccessRegistration] = useState(false);
 
@@ -37,8 +37,10 @@ function App() {
     if (token) {
       Auth.getUserData(token)
         .then((res) => {
-          const data = res.data;
-          setUserData({ email: data.email });
+          // console.log(token);
+          // const data = res.data;
+          setUserData(res.email);
+          console.log(res.email);
           setIsLoggedIn(true);
           navigate("/", { replace: true });
         })
@@ -66,8 +68,9 @@ function App() {
     Auth.authorize(email, password)
       .then((res) => {
         localStorage.setItem("token", res.token);
+        console.log(localStorage.getItem("token", res.token));
         setIsLoggedIn(true);
-        setUserData(email);
+        setUserData(res.email);
       })
       .catch((err) => {
         console.log(err);
@@ -88,12 +91,35 @@ function App() {
     navigate("/sign-in");
   };
 
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     Promise.all([api.getCurrentUser(), api.getCards()])
+  //       .then(([data, cards]) => {
+  //         setCurrentUser(data);
+  //         setCards(cards);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [isLoggedIn]);
+
   useEffect(() => {
     if (isLoggedIn) {
-      Promise.all([api.getCurrentUser(), api.getCards()])
-        .then(([data, cards]) => {
-          setCurrentUser(data);
-          setCards(cards);
+      api
+        .getCurrentUser()
+        .then((profileInfo) => {
+          console.log("lox" + profileInfo);
+          setCurrentUser(profileInfo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      api
+        .getCards()
+        .then((cardsData) => {
+          setCards(cardsData);
         })
         .catch((err) => {
           console.log(err);
