@@ -22,7 +22,7 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,9 +68,8 @@ function App() {
     Auth.authorize(email, password)
       .then((res) => {
         localStorage.setItem("token", res.token);
-        console.log(localStorage.getItem("token", res.token));
         setIsLoggedIn(true);
-        setUserData(res.email);
+        setUserData(email);
       })
       .catch((err) => {
         console.log(err);
@@ -91,35 +90,12 @@ function App() {
     navigate("/sign-in");
   };
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     Promise.all([api.getCurrentUser(), api.getCards()])
-  //       .then(([data, cards]) => {
-  //         setCurrentUser(data);
-  //         setCards(cards);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [isLoggedIn]);
-
   useEffect(() => {
     if (isLoggedIn) {
-      api
-        .getCurrentUser()
-        .then((profileInfo) => {
-          console.log("lox" + profileInfo);
-          setCurrentUser(profileInfo);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      api
-        .getCards()
-        .then((cardsData) => {
-          setCards(cardsData);
+      Promise.all([api.getCurrentUser(), api.getCards()])
+        .then(([data, cards]) => {
+          setCurrentUser(data);
+          setCards(cards);
         })
         .catch((err) => {
           console.log(err);
@@ -294,7 +270,7 @@ function App() {
                 <Header
                   title={"Выйти"}
                   route="/sign-in"
-                  email={userData.email}
+                  email={userData}
                   onClick={logOut}
                 />
                 <ProtectedRoute
