@@ -75,10 +75,7 @@ class Api {
 }
 
 const api = new Api(
-  // "http://localhost:3001"
-  "https://api.batman.nomoredomains.rocks"
-  // "62914e9b-54c6-4b1a-9195-b5e234af2b53" // "https://api.batman.nomoredomains.rocks",
-  // `Bearer ${localStorage.getItem("token")}`
-  // `${localStorage.getItem("token")}`
+  "http://localhost:3001"
+  // "https://api.batman.nomoredomains.rocks"
 );
 export default api;
