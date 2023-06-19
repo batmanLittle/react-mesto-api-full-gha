@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.70.77
+IP 158.160.70.77
 
 Frontend https://batman.nomoredomains.rocks
 
