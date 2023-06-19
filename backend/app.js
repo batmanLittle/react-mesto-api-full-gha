@@ -85,5 +85,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log("App listening on server 3000");
-  console.log(process.env.NODE_ENV);
+  // console.log(process.env.NODE_ENV);
 });
