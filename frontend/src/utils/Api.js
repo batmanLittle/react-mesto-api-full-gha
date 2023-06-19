@@ -75,7 +75,7 @@ class Api {
 }
 
 const api = new Api(
-  "http://localhost:3001"
-  // "https://api.batman.nomoredomains.rocks"
+  // "http://localhost:3001"
+  "https://api.batman.nomoredomains.rocks"
 );
 export default api;
